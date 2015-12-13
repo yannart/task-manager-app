@@ -36,13 +36,13 @@ public class TaskElasticsearchRepositoryImpl implements
 
     public static final String ES_TYPE = "task";
 
-    @Value("${elasticsearch.index}")
+    @Value("${es.index}")
     private String index;
 
-    @Value("${elasticsearch.hosts}")
+    @Value("${es.hosts}")
     private String[] hosts;
 
-    @Value("${elasticsearch.port}")
+    @Value("${es.port}")
     private int port = 9300;
 
     TransportClient client;
