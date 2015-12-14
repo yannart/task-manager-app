@@ -42,9 +42,6 @@ public class TaskElasticsearchRepositoryImpl implements
     @Value("${es.hosts}")
     private String[] hosts;
 
-    @Value("${es.port}")
-    private int port = 9300;
-
     TransportClient client;
 
     @PostConstruct
@@ -55,12 +52,15 @@ public class TaskElasticsearchRepositoryImpl implements
         client = TransportClient.builder().build();
 
         for (String host : hosts) {
+            
+            String [] hostAndPort = host.split(":");
+            
             logger.info(
                     "Adding elasticsearch host with hostname \"{}\" and port \"{}\".",
-                    host, port);
+                    hostAndPort[0], hostAndPort[1]);
 
             client.addTransportAddress(new InetSocketTransportAddress(
-                    InetAddress.getByName(host), port));
+                    InetAddress.getByName(hostAndPort[0]), Integer.parseInt(hostAndPort[1])));
         }
     }
 
